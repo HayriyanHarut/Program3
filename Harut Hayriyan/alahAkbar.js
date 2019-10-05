@@ -1,7 +1,3 @@
-
-
-
-
 class alahAkbar {
     constructor(x, y) {
         this.x = x;
