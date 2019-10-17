@@ -7,9 +7,9 @@ function setup() {
     let grassCountElement = document.getElementById('grassCount');
     let grassLiveCountElement = document.getElementById('grassLiveCount');
     let grassEaterCountElement = document.getElementById('grassEaterCount');
-    let huntCountElement = document.getElementById('huntCount');
-    let terminatorCountElement = document.getElementById('termCount');
-    let titanCountElement = document.getElementById('titanCount');
+    let predatorCountElement = document.getElementById('predatorCount');
+    let saharaCountElement = document.getElementById('saharaCount');
+    let alahakbarCountElement = document.getElementById('alahakbarCount');
     
 
     socket.on("data", drawCreatures);
@@ -23,9 +23,9 @@ function setup() {
         grassCountElement.innerText = data.grassCounter;
         grassLiveCountElement.innerText = data.grassLiveCounter;
         grassEaterCountElement.innerText = data.eatCounter;
-        huntCountElement.innerText = data.huntCounter;
-        terminatorCountElement.innerText = data.termCounter;
-        titanCountElement.innerText = data.titanCounter;
+        predatorCountElement.innerText = data.predatorCounter;
+        saharaCountElement.innerText = data.saharaCounter;
+        alahakbarCountElement.innerText = data.alahakbarCounter;
        
         createCanvas(matrix[0].length * side, matrix.length * side)
        
@@ -41,7 +41,7 @@ function setup() {
                     }
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 2) {
-                    fill("yellow");
+                    fill("orange");
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 0) {
                     fill('#acacac');
@@ -50,7 +50,7 @@ function setup() {
                     fill('red');
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 4) {
-                    fill('blue');
+                    fill(2, 177, 254);
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 5) {
                     fill('black');

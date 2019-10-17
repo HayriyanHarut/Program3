@@ -8,7 +8,7 @@ let random = require('./modules/random');
 
 
 grassArr = [];
-eatArr = [];
+grassEaterArr = [];
 predatorArr = [];
 akbarArr = [];
 saharaArr = [];
@@ -74,7 +74,7 @@ function creatingObjects() {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 2) {
                 var grassEater = new GrassEater(x, y);
-                eatArr.push(grassEater);
+                grassEaterArr.push(grassEater);
                 eatHashiv++;
             } else if (matrix[y][x] == 1) {
                 var grass = new Grass(x, y);
@@ -122,9 +122,9 @@ function game() {
             grassArr[i].mul();
         }
     }
-    if (eatArr[0] !== undefined) {
-        for (var i in eatArr) {
-            eatArr[i].eat();
+    if (grassEaterArr[0] !== undefined) {
+        for (var i in grassEaterArr) {
+            grassEaterArr[i].eat();
         }
     }
     if (predatorArr[0] !== undefined) {
@@ -148,10 +148,10 @@ function game() {
         matrix: matrix,
         grassCounter: grassHashiv,
         grassLiveCounter: grassArr.length,
-        eatCounter: eatHashiv,
-        huntCounter: huntHashiv,
-        termCounter: termHashiv,
-        titanCounter: titanHashiv,
+        grassEaterCounter: grassEaterHashiv,
+        predatorCounter: predatorHashiv,
+        saharaCounter: saharaHashiv,
+        alahakbarCounter: alahakbarHashiv,
         weather: weather
     }
 
