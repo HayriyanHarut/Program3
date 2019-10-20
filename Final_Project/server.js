@@ -17,9 +17,10 @@ matrix = [];
 
 
 grassHashiv = 0;
+grassEaterHashiv = 0;
 eatHashiv = 0;
 predatorHashiv = 0;
-akbarHashiv = 0;
+alahakbarHashiv = 0;
 saharaHashiv = 0;
 
 
@@ -94,7 +95,7 @@ function creatingObjects() {
             else if (matrix[y][x] == 5) {
                 var akbar = new Alahakbar(x, y);
                 akbarArr.push(akbar);
-                akbarHashiv++
+                alahakbarHashiv++
             }
         }
     }
@@ -139,7 +140,7 @@ function game() {
     }
     if (akbarArr[0] !== undefined) {
         for (var i in akbarArr) {
-            akbarArr[i]. akbar();
+            akbarArr[i].akbar();
         }
     }
 
@@ -157,6 +158,8 @@ function game() {
 
 
     io.sockets.emit("data", sendData);
+
+    io.sockets.emit("Key", Keycode);
 }
 
 

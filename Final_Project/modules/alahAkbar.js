@@ -1,42 +1,61 @@
 var LiveForm = require("./LiveForm");
 
-module.exports = class alahAkbar extends  LiveForm {
-    
+module.exports = class alahAkbar extends LiveForm {
+
     constructor(x, y) {
         super(x, y);
-        this.multiply = 0;
     }
-    getNewCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-    chooseCell(character) {
-        this.getNewCoordinates();
-        return super.chooseCell(character);
-    }
-    akabr() {
-        this.multiply++;
-        let emptyCells = this.chooseCell(0);
-        let emptyCell = this.chooseCell(1);
-        let emptyCels = this.chooseCell(2);
-        let newCell = random(emptyCells.concat(emptyCell.concat(emptyCels)));
-        if (newCell && this.multiply > 8) {
-            let x = newCell[0];
-            let y = newCell[1];
-            matrix[y][x] = 4;
-            let sahara = new Sahara(x, y);
-            saharaArr.push(sahara);
-            this.multiply = 0;
+    akbar() {
+        if (this.y == 0) {
+            this.y = 58;
+            for (let y = 0; y < matrix.length; y++) {
+                for (let x = 0; x < matrix.length; x++) {
+                    matrix[y][x] = 1;
+                }
+                grassArr = [];
+                grassEaterArr = [];
+                predatorArr = [];
+                saharaArr = [];
+            }
         }
-    }
-        
-        
+        if (this.y == 59) {
+            this.y = 1;
+            for (let y = 0; y < matrix.length; y++) {
+                for (let x = 0; x < matrix.length; x++) {
+                    matrix[y][x] = 2;
+                }
+                grassArr = [];
+                grassEaterArr = [];
+                predatorArr = [];
+                saharaArr = [];
+            }
+        }
+        if (this.x == 0) {
+
+            for (let y = 0; y < matrix.length; y++) {
+                for (let x = 0; x < matrix.length; x++) {
+                    matrix[y][x] = 3;
+                }
+                grassArr = [];
+                grassEaterArr = [];
+                predatorArr = [];
+                saharaArr = [];
+            }
+            this.x = 58;
+        }
+        if (this.x == 59) {
+            this.x = 1;
+            for (let y = 0; y < matrix.length; y++) {
+                for (let x = 0; x < matrix.length; x++) {
+                    matrix[y][x] = 4;
+
+                }
+                grassArr = [];
+                grassEaterArr = [];
+                predatorArr = [];
+                saharaArr = [];
+            }
+        }
+         Keycode
+    }      
 }
