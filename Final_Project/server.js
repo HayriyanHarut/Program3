@@ -17,9 +17,9 @@ matrix = [];
 
 
 grassHashiv = 0;
-eatHashiv = 0;
+grassEaterHashiv = 0;
 predatorHashiv = 0;
-akbarHashiv = 0;
+alahakbarHashiv = 0;
 saharaHashiv = 0;
 
 
@@ -56,7 +56,7 @@ function matrixGenerator(matrixSize, grass, eat, predator, sahara, akbar) {
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 25, 20, 15, 10, 2);
+matrixGenerator(23, 25, 20, 15, 10, 10);
 
 var express = require('express');
 var app = express();
@@ -75,7 +75,7 @@ function creatingObjects() {
             if (matrix[y][x] == 2) {
                 var grassEater = new GrassEater(x, y);
                 grassEaterArr.push(grassEater);
-                eatHashiv++;
+                grassEaterHashiv++;
             } else if (matrix[y][x] == 1) {
                 var grass = new Grass(x, y);
                 grassArr.push(grass);
@@ -94,7 +94,7 @@ function creatingObjects() {
             else if (matrix[y][x] == 5) {
                 var akbar = new Alahakbar(x, y);
                 akbarArr.push(akbar);
-                akbarHashiv++
+                alahakbarHashiv++
             }
         }
     }
@@ -157,6 +157,8 @@ function game() {
 
 
     io.sockets.emit("data", sendData);
+    sockets.on("Key", KeyCode);
+
 }
 
 

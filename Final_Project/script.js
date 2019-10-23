@@ -2,7 +2,7 @@ function setup() {
     var socket = io();
     var side = 30;
     var matrix = [];
-    
+
     let weatherElement = document.getElementById('weather');
     let grassCountElement = document.getElementById('grassCount');
     let grassLiveCountElement = document.getElementById('grassLiveCount');
@@ -10,14 +10,19 @@ function setup() {
     let predatorCountElement = document.getElementById('predatorCount');
     let saharaCountElement = document.getElementById('saharaCount');
     let alahakbarCountElement = document.getElementById('alahakbarCount');
-    
+
 
     socket.on("data", drawCreatures);
+    socket.emit("Key", KeyCode);
 
+    function KeyCode() {
+        key = keycode
+        up = UP_ARROW
+    }
     function drawCreatures(data) {
 
 
-        
+
         matrix = data.matrix;
         weatherElement.innerText = data.weather;
         grassCountElement.innerText = data.grassCounter;
@@ -26,22 +31,22 @@ function setup() {
         predatorCountElement.innerText = data.predatorCounter;
         saharaCountElement.innerText = data.saharaCounter;
         alahakbarCountElement.innerText = data.alahakbarCounter;
-       
+
         createCanvas(matrix[0].length * side, matrix.length * side)
-       
+
         background('#acacac');
-        
+
         for (var i = 0; i < matrix.length; i++) {
             for (var j = 0; j < matrix[i].length; j++) {
                 if (matrix[i][j] == 1) {
-                    if(data.weather == "summer"){
+                    if (data.weather == "summer") {
                         fill("green");
-                    }else if (data.weather == "autumn"){
+                    } else if (data.weather == "autumn") {
                         fill("orange");
                     }
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 2) {
-                    fill("orange");
+                    fill("blue");
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 0) {
                     fill('#acacac');
