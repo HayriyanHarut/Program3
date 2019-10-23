@@ -3,6 +3,7 @@ var GrassEater = require("./modules/grassEater.js");
 var Predator = require("./modules/Preadator.js");
 var Sahara = require("./modules/sahara.js");
 var alahAkbar = require("./modules/alahAkbar.js");
+var Revolutia = require("./modules/Revolutia.js");
 let random = require('./modules/random');
 
 
@@ -11,6 +12,7 @@ grassEaterArr = [];
 predatorArr = [];
 akbarArr = [];
 saharaArr = [];
+revolutiaArr = [];
 matrix = [];
 
 
@@ -20,9 +22,10 @@ grassEaterHashiv = 0;
 predatorHashiv = 0;
 alahakbarHashiv = 0;
 saharaHashiv = 0;
+revolutiaHashiv = 1;
 
 
-function matrixGenerator(matrixSize, grass, grassEater, predator, sahara, akbar) {
+function matrixGenerator(matrixSize, grass, grassEater, predator, sahara, akbar, revolutia) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o < matrixSize; o++) {
@@ -54,8 +57,13 @@ function matrixGenerator(matrixSize, grass, grassEater, predator, sahara, akbar)
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 5;
     }
+    for (let i = 0; i < revolutia; i++) {
+        let customX = matrixSize / 2;
+        let customY = matrixSize / 2;
+        matrix[customY][customX] = 6;
+    }
 }
-matrixGenerator(23, 40, 20, 15, 10, 10);
+matrixGenerator(24, 40, 20, 3, 10, 10, 1);
 
 var express = require('express');
 var app = express();
@@ -95,6 +103,11 @@ function creatingObjects() {
                 akbarArr.push(akbar);
                 alahakbarHashiv++
             }
+            else if (matrix[y][x] == 6) {
+                var revolutia = new Revolutia(x, y);
+                revolutia.push(revolutia);
+                revolutiaHashiv++
+            }
         }
     }
 }
@@ -107,11 +120,11 @@ let weather = "winter"
 function game() {
 
     exanak++;
-    if (exanak <= 10){
+    if (exanak <= 10) {
         weather = "summer"
-    }else if (exanak <= 20){
+    } else if (exanak <= 20) {
         weather = "autumn"
-    }else if (exanak > 20){
+    } else if (exanak > 20) {
         exanak = 0
     }
     if (grassArr[0] !== undefined) {
@@ -138,6 +151,10 @@ function game() {
         for (var i in akbarArr) {
             akbarArr[i].akbar();
         }
+    } if (revolutiaArr[0] !== undefined) {
+        for (var i in revolutiaArr) {
+            revolutiaArr[i].revolutia();
+        }
     }
 
 
@@ -154,7 +171,7 @@ function game() {
 
 
     io.sockets.emit("data", sendData);
-   
+
 }
 
 setInterval(game, 1000)

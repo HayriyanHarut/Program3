@@ -4,7 +4,7 @@ var random = require("./random");
 module.exports = class Predator extends LiveForm {
     constructor(x, y) {
         super(x, y);
-        this.multiply = 0;
+        this.energia = 4;
     }
     getNewCoordinates() {
         this.directions = [

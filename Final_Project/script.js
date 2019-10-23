@@ -58,6 +58,10 @@ function setup() {
                     fill('black');
                     rect(j * side, i * side, side, side);
                 }
+                else if (matrix[i][j] == 6) {
+                    fill('#4d0000');
+                    rect(j * side, i * side, side, side);
+                }
             }
         }
     }
