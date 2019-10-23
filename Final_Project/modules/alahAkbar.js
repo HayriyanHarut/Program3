@@ -1,108 +1,81 @@
 var LiveForm = require("./LiveForm");
+var random = require("./random");
 
-module.exports = class alahAkbar extends  LiveForm {
+module.exports = class alahAkbar extends LiveForm {
     constructor(x, y) {
         super(x, y);
         this.multiply = 0;
     }
+    getNewCoordinates() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+    }
+    chooseCell(character) {
+        this.getNewCoordinates();
+        return super.chooseCell(character);
+    }
+    mul() {
+        let emptyCells = this.chooseCell(0);
+        let newCell = random(emptyCells);
+
+        if (newCell) {
+
+            let x = newCell[0];
+            let y = newCell[1];
+
+            matrix[y][x] = 5;
+
+            let alahAkbar = new alahAkbar(x, y);
+            akbarArr.push(alahAkbar);
+
+            this.life = 0;
+        }
+    }
     akbar() {
-        if (this.y == 0) {
-            this.y = 58;
-            for (let y = 0; y < matrix.length; y++) {
-                for (let x = 0; x < matrix.length; x++) {
-                    matrix[y][x] = 1;
-                }
-                grassArr = [];
-                grassEaterArr = [];
-                predatorArr = [];
-                saharaArr = [];
-            }
-        }
-        if (this.y == 59) {
-            this.y = 1;
-            for (let y = 0; y < matrix.length; y++) {
-                for (let x = 0; x < matrix.length; x++) {
-                    matrix[y][x] = 2;
-                }
-                grassArr = [];
-                grassEaterArr = [];
-                predatorArr = [];
-                saharaArr = [];
-            }
-        }
-        if (this.x == 0) {
+        let emptyCells = this.chooseCell(3);
+        let newCell = random(emptyCells);
 
-            for (let y = 0; y < matrix.length; y++) {
-                for (let x = 0; x < matrix.length; x++) {
-                    matrix[y][x] = 3;
-                }
-                grassArr = [];
-                grassEaterArr = [];
-                predatorArr = [];
-                saharaArr = [];
-            }
-            this.x = 58;
-        }
-        if (this.x == 59) {
-            this.x = 1;
-            for (let y = 0; y < matrix.length; y++) {
-                for (let x = 0; x < matrix.length; x++) {
-                    matrix[y][x] = 4;
+        if (newCell) {
+            this.life++;
+            let x = newCell[0];
+            let y = newCell[1];
 
-                }
-                grassArr = [];
-                grassEaterArr = [];
-                predatorArr = [];
-                saharaArr = [];
-            }
-        }
-        KeyCode(up)
-        if (key === up) {
-            let x = this.x;
-            let y = this.y - 1;
+            matrix[y][x] = 5;
+            matrix[this.y][this.x] = 0;
 
-            if (matrix.length - 1 == this.y) {
-                this.y = 59;
+            for (let i in predatorArr) {
+                if (predatorArr[i].x == x && predatorArr[i].y == y) {
+                    predatorArr.splice(i, 1)
+                }
             }
-            else {
-                matrix[y][x] = 5;
-                matrix[this.y][this.x] = 0;
-            }
-            this.y = y;
+
             this.x = x;
-        }
-        else if (keyCode === DOWN_ARROW) {
-            let x = this.x;
-            let y = this.y + 1;
-            if (matrix.length - 1 == this.y) {
-                this.y = 0
-            }
-            else {
-                matrix[y][x] = 5;
-                matrix[this.y][this.x] = 0;
-            }
             this.y = y;
-            this.x = x;
-
-        }
-        else if (keyCode === LEFT_ARROW) {
-            let x = this.x - 1;
-            let y = this.y;
-
-            if (matrix[x].length - 1 == this.x) {
-                this.x = 59;
+            if (this.life >= 5) {
+                this.mul();
             }
-            else {
-                matrix[y][x] = 5;
-                matrix[this.y][this.x] = 0;
-            }
-
-            this.y = y;
-            this.x = x;
+        } else {
+            this.move()
         }
-        else if (keyCode === RIGHT_ARROW) {
-            let x = this.x + 1;
-            let y = this.y;
+    }
+    move() {
+        this.life--;
+
+        let emptyCells = this.chooseCell(0);
+        let emptyCels = this.chooseCell(1);
+        let newCell = random(emptyCells.concat(emptyCels));
+
+        if (newCell) {
+            let x = newCell[0];
+            let y = newCell[1];
 
             matrix[y][x] = 5;
             matrix[this.y][this.x] = 0;
@@ -110,8 +83,17 @@ module.exports = class alahAkbar extends  LiveForm {
             this.y = y;
             this.x = x;
         }
-        return false;
+        if (this.life < 0) {
+            this.die();
+        }
+    }
+    die() {
+        matrix[this.y][this.x] = 0;
 
-
+        for (let i in akbarArr) {
+            if (akbarArr[i].x == this.x && akbarArr[i].y == this.y) {
+                akbarArr.splice(i, 1)
+            }
+        }
     }
 }

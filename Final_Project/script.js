@@ -13,12 +13,9 @@ function setup() {
 
 
     socket.on("data", drawCreatures);
-    socket.emit("Key", KeyCode);
-
-    function KeyCode() {
-        key = keycode
-        up = UP_ARROW
-    }
+   
+ 
+   
     function drawCreatures(data) {
 
 
@@ -27,7 +24,7 @@ function setup() {
         weatherElement.innerText = data.weather;
         grassCountElement.innerText = data.grassCounter;
         grassLiveCountElement.innerText = data.grassLiveCounter;
-        grassEaterCountElement.innerText = data.eatCounter;
+        grassEaterCountElement.innerText = data.grassEaterCounter;
         predatorCountElement.innerText = data.predatorCounter;
         saharaCountElement.innerText = data.saharaCounter;
         alahakbarCountElement.innerText = data.alahakbarCounter;

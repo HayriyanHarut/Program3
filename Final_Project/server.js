@@ -1,9 +1,8 @@
-
 var Grass = require("./modules/grass.js");
 var GrassEater = require("./modules/grassEater.js");
 var Predator = require("./modules/Preadator.js");
 var Sahara = require("./modules/sahara.js");
-var Alahakbar = require("./modules/alahAkbar.js");
+var alahAkbar = require("./modules/alahAkbar.js");
 let random = require('./modules/random');
 
 
@@ -23,7 +22,7 @@ alahakbarHashiv = 0;
 saharaHashiv = 0;
 
 
-function matrixGenerator(matrixSize, grass, eat, predator, sahara, akbar) {
+function matrixGenerator(matrixSize, grass, grassEater, predator, sahara, akbar) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o < matrixSize; o++) {
@@ -35,7 +34,7 @@ function matrixGenerator(matrixSize, grass, eat, predator, sahara, akbar) {
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 1;
     }
-    for (let i = 0; i < eat; i++) {
+    for (let i = 0; i < grassEater; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 2;
@@ -56,7 +55,7 @@ function matrixGenerator(matrixSize, grass, eat, predator, sahara, akbar) {
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(23, 25, 20, 15, 10, 10);
+matrixGenerator(23, 40, 20, 15, 10, 10);
 
 var express = require('express');
 var app = express();
@@ -92,7 +91,7 @@ function creatingObjects() {
                 saharaHashiv++
             }
             else if (matrix[y][x] == 5) {
-                var akbar = new Alahakbar(x, y);
+                var akbar = new alahAkbar(x, y);
                 akbarArr.push(akbar);
                 alahakbarHashiv++
             }
@@ -115,8 +114,6 @@ function game() {
     }else if (exanak > 20){
         exanak = 0
     }
-
-
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mul();
@@ -139,7 +136,7 @@ function game() {
     }
     if (akbarArr[0] !== undefined) {
         for (var i in akbarArr) {
-            akbarArr[i]. akbar();
+            akbarArr[i].akbar();
         }
     }
 
@@ -157,10 +154,7 @@ function game() {
 
 
     io.sockets.emit("data", sendData);
-    sockets.on("Key", KeyCode);
-
+   
 }
-
-
 
 setInterval(game, 1000)
